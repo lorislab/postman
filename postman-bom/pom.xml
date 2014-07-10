@@ -27,7 +27,14 @@
 				<groupId>org.lorislab.postman</groupId>
 				<artifactId>postman-service</artifactId>
 				<version>${project.version}</version>
-			</dependency>		
+				<type>ejb-client</type>
+			</dependency>	
+			<dependency>
+				<groupId>org.lorislab.postman</groupId>
+				<artifactId>postman-service</artifactId>
+				<version>${project.version}</version>
+				<type>ejb</type>
+			</dependency>				
 		</dependencies>
 	</dependencyManagement>
 </project>
