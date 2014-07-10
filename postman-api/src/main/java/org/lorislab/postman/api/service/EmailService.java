@@ -49,5 +49,15 @@ public interface EmailService {
      * @throws java.lang.Exception if the method fails.
      */
     public void sendEmail(Email email, EmailConfig config) throws Exception;
-
+    
+    /**
+     * Sends the email. directly
+     *
+     * @param email the email object.
+     * @param config the email configuration.
+     * 
+     * @throws java.lang.Exception if the method fails.
+     */
+    public void sendEmailAsync(Email email, EmailConfig config) throws Exception;
+    
 }

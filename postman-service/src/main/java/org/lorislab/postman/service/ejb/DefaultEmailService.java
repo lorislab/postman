@@ -18,6 +18,7 @@ package org.lorislab.postman.service.ejb;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Asynchronous;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -73,7 +74,16 @@ public class DefaultEmailService implements EmailService {
     /**
      * {@inheritDoc}
      */
-    @Override
+    @Override        
+    @Asynchronous
+    public void sendEmailAsync(Email email, EmailConfig config) throws Exception {
+        sendEmail(email, config);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override    
     public void sendEmail(Email email, EmailConfig config) throws Exception {
 
         // check email configuration
