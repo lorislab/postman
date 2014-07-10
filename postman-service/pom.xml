@@ -22,7 +22,13 @@
 			<groupId>org.lorislab.postman</groupId>
 			<artifactId>postman-impl</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<!-- JEL -->
+		<dependency>
+			<groupId>org.lorislab.jel</groupId>
+			<artifactId>jel-base</artifactId>
 		</dependency>		
+		
 		<!-- EJB -->
 		<dependency>
 			<groupId>org.jboss.spec.javax.ejb</groupId>

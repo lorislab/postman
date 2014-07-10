@@ -22,5 +22,11 @@
 			<artifactId>mail</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<!-- MVEL -->	
+		<dependency>
+			<groupId>org.mvel</groupId>
+			<artifactId>mvel2</artifactId>
+			<version>2.1.9.Final</version>
+		</dependency>		
 	</dependencies>
 </project>

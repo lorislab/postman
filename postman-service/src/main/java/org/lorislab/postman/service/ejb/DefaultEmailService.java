@@ -16,6 +16,7 @@
 package org.lorislab.postman.service.ejb;
 
 import java.util.Locale;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -24,6 +25,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.mail.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import org.lorislab.jel.base.util.FileUtil;
 import org.lorislab.postman.api.model.Email;
 import org.lorislab.postman.api.model.EmailConfig;
 import org.lorislab.postman.api.model.EmailTemplateResource;
@@ -31,6 +33,7 @@ import org.lorislab.postman.api.service.EmailService;
 import org.lorislab.postman.impl.PostBox;
 import org.lorislab.postman.util.EmailUtil;
 import org.lorislab.postman.util.PostBoxUtil;
+import org.lorislab.postman.util.ResourceUtil;
 
 /**
  * The default email service implementation.
@@ -52,7 +55,19 @@ public class DefaultEmailService implements EmailService {
      */
     @Override
     public EmailTemplateResource loadMailTemplateResource(String template, String name, Locale locale) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        byte[] data = null;
+        try {
+            // load the file
+            String path = ResourceUtil.getEmailResourcePath(template, locale, name);
+            data = FileUtil.readFileAsByteArray(path, this.getClass().getClassLoader());
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error reading the template " + template + " resource " + name, ex);
+        }
+        // create template resource
+        EmailTemplateResource result = new EmailTemplateResource();
+        result.setName(name);
+        result.setContent(data);
+        return result;
     }
 
     /**
@@ -81,10 +96,12 @@ public class DefaultEmailService implements EmailService {
             EmailUtil.configureEmail(email, config);
             
             // load the subject and content
+            String subject = ResourceUtil.getEmailSubject(email.getTemplate(), email.getLocale(), email.getParameters());
+            String content = ResourceUtil.getEmailContent(email.getTemplate(), email.getLocale(), email.getParameters());
             
             // send email.         
             PostBox postBox = new PostBox(session);
-            postBox.sendEmail(email, null, null);
+            postBox.sendEmail(email, subject, content);
 
         } else {
             LOGGER.fine("The email service is disabled!");
