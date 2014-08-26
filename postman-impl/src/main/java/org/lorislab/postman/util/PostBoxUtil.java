@@ -25,8 +25,6 @@ import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
-import org.lorislab.postman.api.model.Email;
-import org.lorislab.postman.api.model.EmailConfig;
 
 /**
  * The post box utility.

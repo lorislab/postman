@@ -35,6 +35,8 @@ import org.lorislab.postman.impl.PostBox;
 import org.lorislab.postman.util.EmailUtil;
 import org.lorislab.postman.util.PostBoxUtil;
 import org.lorislab.postman.util.ResourceUtil;
+import org.lorislab.treasure.api.factory.PasswordServiceFactory;
+import org.lorislab.treasure.api.service.PasswordService;
 
 /**
  * The default email service implementation.
@@ -99,7 +101,9 @@ public class DefaultEmailService implements EmailService {
                     throw new Exception("Error lookup session " + config.getJndi() + " for the email " + email.getGuid(), ex);
                 }
             } else {
-                session = PostBoxUtil.createSession(config.getHost(), config.getUser(), config.getPassword());
+                PasswordService pswdService = PasswordServiceFactory.getService();
+                char[] pswd = pswdService.getPassword(config.getPassword());
+                session = PostBoxUtil.createSession(config.getHost(), config.getUser(), pswd);
             }
             
             // configure email

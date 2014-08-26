@@ -61,6 +61,13 @@
 				<scope>import</scope>
 			</dependency>
 			
+			<!-- TREASURE -->
+			<dependency>
+				<groupId>org.lorislab.treasure</groupId>
+				<artifactId>treasure-lib</artifactId>
+				<version>0.0.2-SNAPSHOT</version>
+			</dependency>
+						
 			<!-- MVEL -->	
 			<dependency>
 				<groupId>org.mvel</groupId>

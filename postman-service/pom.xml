@@ -1,15 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
     
-    <parent>
-        <groupId>org.lorislab.postman</groupId>
-        <artifactId>postman</artifactId>
-        <version>0.0.2-SNAPSHOT</version>
+	<parent>
+		<groupId>org.lorislab.postman</groupId>
+		<artifactId>postman</artifactId>
+		<version>0.0.2-SNAPSHOT</version>
 		<relativePath>../</relativePath>
-    </parent>
+	</parent>
 	
-    <artifactId>postman-service</artifactId> 
-    <name>postman-service</name>
+	<artifactId>postman-service</artifactId> 
+	<name>postman-service</name>
 	<packaging>ejb</packaging>
 	
 	<dependencies>
@@ -28,7 +28,11 @@
 			<groupId>org.lorislab.jel</groupId>
 			<artifactId>jel-base</artifactId>
 		</dependency>		
-		
+		<!-- TREASURE -->
+		<dependency>
+			<groupId>org.lorislab.treasure</groupId>
+			<artifactId>treasure-lib</artifactId>
+		</dependency>		
 		<!-- EJB -->
 		<dependency>
 			<groupId>org.jboss.spec.javax.ejb</groupId>

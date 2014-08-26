@@ -48,7 +48,7 @@ public class EmailConfig implements Serializable {
     /**
      * The server password.
      */
-    private char[] password = null;
+    private String password = null;
 
     /**
      * The server.
@@ -124,7 +124,7 @@ public class EmailConfig implements Serializable {
      *
      * @return the password.
      */
-    public char[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -133,7 +133,7 @@ public class EmailConfig implements Serializable {
      *
      * @param password the password.
      */
-    public void setPassword(char[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
