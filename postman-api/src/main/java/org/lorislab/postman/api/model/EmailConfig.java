@@ -41,6 +41,11 @@ public class EmailConfig implements Serializable {
     private String host = null;
 
     /**
+     * The server port.
+     */
+    private int port = 25;
+
+    /**
      * The user.
      */
     private String user = null;
@@ -49,6 +54,11 @@ public class EmailConfig implements Serializable {
      * The server password.
      */
     private String password = null;
+
+    /**
+     * The SSL flag.
+     */
+    private boolean ssl = false;
 
     /**
      * The server.
@@ -82,6 +92,42 @@ public class EmailConfig implements Serializable {
      * The transfer encoding.
      */
     private String transferEncoding = "quoted-printable";
+
+    /**
+     * Gets the SSL flag.
+     *
+     * @return the SSL flag.
+     */
+    public boolean isSsl() {
+        return ssl;
+    }
+
+    /**
+     * Sets the SSL flag.
+     *
+     * @param ssl the SSL flag.
+     */
+    public void setSsl(boolean ssl) {
+        this.ssl = ssl;
+    }
+
+    /**
+     * Gets the port.
+     *
+     * @return the port.
+     */
+    public int getPort() {
+        return port;
+    }
+
+    /**
+     * Sets the port.
+     *
+     * @param port the port.
+     */
+    public void setPort(int port) {
+        this.port = port;
+    }
 
     /**
      * Gets the JNDI path.

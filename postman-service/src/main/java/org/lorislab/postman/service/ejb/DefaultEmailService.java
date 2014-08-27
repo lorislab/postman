@@ -93,7 +93,8 @@ public class DefaultEmailService implements EmailService {
 
             // create the session
             Session session = null;
-            if (config.getJndi() != null) {
+            String jndi = config.getJndi();
+            if (jndi != null && !jndi.isEmpty()) {
                 try {
                     InitialContext ic = new InitialContext();
                     session = (Session) ic.lookup(config.getJndi());
@@ -103,7 +104,7 @@ public class DefaultEmailService implements EmailService {
             } else {
                 PasswordService pswdService = PasswordServiceFactory.getService();
                 char[] pswd = pswdService.getPassword(config.getPassword());
-                session = PostBoxUtil.createSession(config.getHost(), config.getUser(), pswd);
+                session = PostBoxUtil.createSession(config, pswd);
             }
             
             // configure email

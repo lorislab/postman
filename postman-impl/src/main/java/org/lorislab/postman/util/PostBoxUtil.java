@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.lorislab.postman.util;
 
 import java.util.ArrayList;
@@ -25,52 +24,59 @@ import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
+import org.lorislab.postman.api.model.EmailConfig;
 
 /**
  * The post box utility.
- * 
+ *
  * @author Andrej Petras
  */
 public final class PostBoxUtil {
-    
+
     /**
      * The default constructor
      */
     private PostBoxUtil() {
         // empty constructor
     }
-    
+
     /**
      * Creates the session.
      *
-     * @param host the host.
-     * @param userName the user name.
+     * @param config the email configuration.
      * @param password the password.
      * @return the new session.
      */
-    public static Session createSession(final String host, final String userName, final char[] password) {
+    public static Session createSession(final EmailConfig config, final char[] password) {
         Session result = null;
         if (result == null) {
             Properties properties = new Properties();
-            properties.put("mail.transport.protocol", "smtp");
-            properties.setProperty("mail.smtp.host", host);
+            if (config.isSsl()) {
+                properties.put("mail.transport.protocol", "smtps");
+            } else {
+                properties.put("mail.transport.protocol", "smtp");
+            }
+
+            properties.put("mail.smtp.ssl.enable", config.isSsl());
+            properties.put("mail.smtp.port", config.getPort());
+            properties.setProperty("mail.smtp.host", config.getHost());
 
             Authenticator authenticator = null;
 
-            if (userName != null) {
+            if (config.getUser() != null) {
                 properties.put("mail.smtp.auth", "true");
                 authenticator = new Authenticator() {
                     @Override
                     public PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(userName, new String(password));
+                        return new PasswordAuthentication(config.getUser(), new String(password));
                     }
                 };
             }
-            result = Session.getDefaultInstance(properties, authenticator);
+            result = Session.getInstance(properties, authenticator);
         }
         return result;
     }
-    
+
     /**
      * Creates the list of addresses.
      *
@@ -108,5 +114,5 @@ public final class PostBoxUtil {
         }
         return result;
     }
-    
+
 }
