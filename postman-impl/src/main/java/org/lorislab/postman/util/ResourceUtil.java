@@ -15,15 +15,15 @@
  */
 package org.lorislab.postman.util;
 
+import com.samskivert.mustache.Mustache;
+import com.samskivert.mustache.Template;
 import java.io.File;
-import java.io.InputStream;
+import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-import org.mvel2.templates.CompiledTemplate;
-import org.mvel2.templates.TemplateCompiler;
-import org.mvel2.templates.TemplateRuntime;
 
 /**
  * The resource utility.
@@ -56,7 +56,7 @@ public final class ResourceUtil {
     /**
      * The map of templates.
      */
-    private static final Map<String, CompiledTemplate> TEMPLATES = new HashMap<>();
+    private static final Map<String, Template> TEMPLATES = new HashMap<>();
 
     /**
      * The path separator.
@@ -134,25 +134,29 @@ public final class ResourceUtil {
 
         String key = getResourcePath(template, name, locale);
 
-        CompiledTemplate compiled = TEMPLATES.get(key);
+
+        Template compiled = TEMPLATES.get(key);
         // if not exist create compiled template
         if (compiled == null) {
             // load from external directory
-            if (TEMPLATE_DIR != null) {
-                compiled = TemplateCompiler.compileTemplate(new File(TEMPLATE_DIR, key));
+            if (TEMPLATE_DIR != null) {                
+                compiled = Mustache.compiler().compile(new FileReader(new File(TEMPLATE_DIR, key)));
             } else {
                 // load from class path
-                try (InputStream stream = EmailUtil.class.getResourceAsStream(key)) {
-                    compiled = TemplateCompiler.compileTemplate(stream);
+                try (InputStreamReader stream = new InputStreamReader( EmailUtil.class.getResourceAsStream(key))) {
+                    compiled = Mustache.compiler().compile(stream);
                 }
             }
-            // add to the template cache.
+            // add to the template cache only if not use the directory.
             if (compiled != null && TEMPLATE_DIR == null) {
                 TEMPLATES.put(key, compiled);
             }
         }
         // create the result
-        String result = (String) TemplateRuntime.execute(compiled, parameters);
+        String result = null; 
+        if (compiled != null) {
+            result = compiled.execute(parameters);
+        }
         return result;
     }
 

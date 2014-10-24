@@ -5,27 +5,26 @@
         <groupId>org.lorislab.postman</groupId>
         <artifactId>postman</artifactId>
         <version>0.0.2-SNAPSHOT</version>
-		<relativePath>../</relativePath>
+        <relativePath>../</relativePath>
     </parent>
 	
     <artifactId>postman-impl</artifactId> 
     <name>postman-impl</name>
 	
-	<dependencies>
-		<dependency>
-			<groupId>org.lorislab.postman</groupId>
-			<artifactId>postman-api</artifactId>
-			<version>${project.version}</version>
-		</dependency>		
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<!-- MVEL -->	
-		<dependency>
-			<groupId>org.mvel</groupId>
-			<artifactId>mvel2</artifactId>
-		</dependency>		
-	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.lorislab.postman</groupId>
+            <artifactId>postman-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>		
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <scope>provided</scope>
+        </dependency>	
+        <dependency>
+            <groupId>com.samskivert</groupId>
+            <artifactId>jmustache</artifactId>
+        </dependency>
+    </dependencies>
 </project>
